@@ -43,4 +43,23 @@ class TestRoom(unittest.TestCase):
         self.room1.guest_checkin(self.party1)
         self.room1.guest_checkout(self.party1)
         self.assertEqual([], self.room1.guest_list)
+
+    def test_room_can_add_songs(self):
+        self.room1.add_song(self.song1)
+        self.room1.add_song(self.song2)
+        self.room1.add_song(self.song3)
+        self.assertEqual(self.room1.play_list, self.songlist1) 
+
+    def test_room_can_take_songlists(self):
+        self.room1.add_songlist(self.songlist1)
+        self.assertEqual(self.songlist1, self.room1.play_list)
     
+    def test_room_can_remove_songs(self):
+        self.room1.add_songlist(self.songlist1)
+        self.room1.remove_songs(self.song3)
+        self.assertEqual([self.song1, self.song2], self.room1.play_list)
+    
+    def test_room_can_remove_songlists(self):
+        self.room1.add_songlist(self.songlist1)
+        self.room1.remove_songlist(self.songlist1)
+        self.assertEqual(self.room1.play_list, [])
