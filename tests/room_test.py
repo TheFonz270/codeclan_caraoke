@@ -5,12 +5,20 @@ from src.guest import Guest
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
-        self.room1 = Room(10)
+        self.room1 = Room(5)
 
         self.guest1 = Guest("Harry", 50, "Greese Lightning")
         self.guest2 = Guest("James", 50, "Disco Inferno")
         self.guest3 = Guest("Yuko", 50, "Love Story")
         self.party1 = [self.guest1, self.guest2, self.guest3]
+
+        self.guest4 = Guest("Ame", 50, "Wolfs Howl")
+        self.guest5 = Guest("Byakuya", 1000, "Money Money Money")
+        self.guest6 = Guest("Kai", 25, "Life on Mars")
+        self.guest7 = Guest("Dabi", 55, "Fire")
+        self.guest8 = Guest("Ei", 45, "Danger Danger")
+        self.guest9 = Guest("Fuka", 30, "Burn my Dread")
+        self.party2 = [self.guest4, self.guest5, self.guest6, self.guest7, self.guest8, self.guest9]
     
         self.song1 = Song("Crazy Train", 200)
         self.song2 = Song("Mr Crowley", 160)
@@ -18,7 +26,7 @@ class TestRoom(unittest.TestCase):
         self.songlist1 = [self.song1, self.song2, self.song3]
     
     def test_room_has_capacity(self):
-        self.assertEqual(10, self.room1.capacity)
+        self.assertEqual(5, self.room1.capacity)
 
     def test_room_guests_have_name(self):
         self.assertEqual("Harry", self.guest1.name)
@@ -67,3 +75,10 @@ class TestRoom(unittest.TestCase):
     def test_entry_fee_added_to_tab(self):
         self.room1.guest_checkin(self.party1)
         self.assertEqual(15, self.room1.tab)
+    
+    def test_check_room_can_fit_party(self):
+        self.assertEqual(True, self.room1.check_capacity(self.party1))
+    
+    def test_check_room_can_fit_party_false(self):
+        self.assertEqual(False, self.room1.check_capacity(self.party2))
+        

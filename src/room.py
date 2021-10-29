@@ -6,6 +6,9 @@ class Room:
         self.entry_fee = 5
         self.tab = 0
     
+    def check_capacity(self, party):
+        return len(party) <= self.capacity
+
     def guest_checkin(self, party):
         for person in party:
             self.guest_list.append(person)
