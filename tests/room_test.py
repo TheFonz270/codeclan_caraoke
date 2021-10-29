@@ -39,5 +39,8 @@ class TestRoom(unittest.TestCase):
         self.room1.guest_checkin(self.party1)
         self.assertEqual(self.party1, self.room1.guest_list)
     
-
+    def test_guests_can_leave_room(self):
+        self.room1.guest_checkin(self.party1)
+        self.room1.guest_checkout(self.party1)
+        self.assertEqual([], self.room1.guest_list)
     

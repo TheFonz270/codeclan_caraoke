@@ -6,4 +6,11 @@ class Room:
         self.tab = 0
     
     def guest_checkin(self, party):
-        self.guest_list = party
+        for person in party:
+            self.guest_list.append(person)
+        # print(self.guest_list)
+    
+    def guest_checkout(self, party):
+        for person in party:
+            self.guest_list.remove(person)
+        # print(self.guest_list)
