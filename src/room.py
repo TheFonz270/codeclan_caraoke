@@ -33,11 +33,18 @@ class Room:
     
     def add_song(self, song):
         self.play_list.append(song)
+        self.favourite_song_cheer(song)
 
     def add_songlist(self, songlist):
         for song in songlist:
             self.play_list.append(song)
+            self.favourite_song_cheer(song)
     
+    def favourite_song_cheer(self, song):
+        for person in self.guest_list:
+            if person.fav_song == song.name:
+                print(person.name + ": Woo! I love this song!")
+
     def remove_songs(self, song):
         self.play_list.remove(song)
     
