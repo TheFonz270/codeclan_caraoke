@@ -23,5 +23,21 @@ class TestRoom(unittest.TestCase):
     def test_room_guests_have_name(self):
         self.assertEqual("Harry", self.guest1.name)
     
+    def test_room_guests_have_wallet(self): 
+        self.assertEqual(50, self.guest2.wallet)
+    
+    def test_room_guests_have_fav_song(self):
+        self.assertEqual("Disco Inferno", self.guest2.fav_song)
+    
+    def test_room_songs_have_name(self):
+        self.assertEqual("Crazy Train", self.song1.name)
+
+    def test_room_songs_have_runtime(self):
+        self.assertEqual(180, self.song3.run_time)
+
+    def test_room_can_take_guests(self):
+        self.room1.guest_checkin(self.party1)
+        self.assertEqual(self.party1, self.room1.guest_list)
+    
 
     
