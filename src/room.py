@@ -8,12 +8,21 @@ class Room:
     
     def check_capacity(self, party):
         return len(party) <= self.capacity
+    
+    def check_party_covers_entry_fee(self, party):
+        for person in party:
+            if person.wallet < self.entry_fee:
+                return False
+        return True
 
     def guest_checkin(self, party):
-        for person in party:
-            self.guest_list.append(person)
-            person.wallet -= self.entry_fee
-            self.tab += self.entry_fee
+        if self.check_capacity(party) and self.check_party_covers_entry_fee(party):
+            for person in party:
+                self.guest_list.append(person)
+                person.wallet -= self.entry_fee
+                self.tab += self.entry_fee
+        else:
+            print("Apologies Party Rejected.")
         # print(self.guest_list)
     
     def guest_checkout(self, party):

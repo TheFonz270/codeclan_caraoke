@@ -19,6 +19,9 @@ class TestRoom(unittest.TestCase):
         self.guest8 = Guest("Ei", 45, "Danger Danger")
         self.guest9 = Guest("Fuka", 30, "Burn my Dread")
         self.party2 = [self.guest4, self.guest5, self.guest6, self.guest7, self.guest8, self.guest9]
+
+        self.guest10 = Guest("Sad Tony", 4, "Make the World Go Away")
+        self.party3 = [self.guest10]
     
         self.song1 = Song("Crazy Train", 200)
         self.song2 = Song("Mr Crowley", 160)
@@ -82,3 +85,20 @@ class TestRoom(unittest.TestCase):
     def test_check_room_can_fit_party_false(self):
         self.assertEqual(False, self.room1.check_capacity(self.party2))
         
+    def test_room_can_take_guests_confirming_capacity_and_entry_fee(self):
+        self.room1.guest_checkin(self.party1)
+        self.assertEqual(self.party1, self.room1.guest_list)
+        self.assertEqual(True, self.room1.check_capacity(self.party1))
+        self.assertEqual(15, self.room1.tab)
+
+    def test_room_cant_take_guests_over_capacity(self):
+        self.room1.guest_checkin(self.party2)
+        self.assertEqual([], self.room1.guest_list)
+        self.assertEqual(False, self.room1.check_capacity(self.party2))
+        self.assertEqual(0, self.room1.tab)
+
+    def test_room_cant_take_guests_cant_afford_entry(self):
+        self.room1.guest_checkin(self.party3)
+        self.assertEqual([], self.room1.guest_list)
+        self.assertEqual(True, self.room1.check_capacity(self.party3))
+        self.assertEqual(0, self.room1.tab)
