@@ -5,7 +5,8 @@ from src.guest import Guest
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
-        self.room1 = Room(5)
+        self.room1 = Room(5, 20)
+        self.room2 = Room(10, 30)
 
         self.guest1 = Guest("Harry", 50, "Greese Lightning")
         self.guest2 = Guest("James", 50, "Disco Inferno")
@@ -24,9 +25,18 @@ class TestRoom(unittest.TestCase):
         self.party3 = [self.guest10]
     
         self.song1 = Song("Crazy Train", 200)
-        self.song2 = Song("Mr Crowley", 160)
-        self.song3 = Song("Disco Inferno", 180)
+        self.song2 = Song("Mr Crowley", 200)
+        self.song3 = Song("Disco Inferno", 200)
         self.songlist1 = [self.song1, self.song2, self.song3]
+
+        self.song4 = Song("Wolfs Howl", 200)
+        self.song5 = Song("Money Money Money", 200)
+        self.song6 = Song("Life on Mars", 200)
+        self.song7 = Song("Fire", 200)
+        self.song8 = Song("Danger Danger", 200)
+        self.song9 = Song("Burn my Dread", 200)
+        self.songlist2 = [self.song4, self.song5, self.song6, self.song7, self.song8, self.song9]
+
     
     def test_room_has_capacity(self):
         self.assertEqual(5, self.room1.capacity)
@@ -44,7 +54,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual("Crazy Train", self.song1.name)
 
     def test_room_songs_have_runtime(self):
-        self.assertEqual(180, self.song3.run_time)
+        self.assertEqual(200, self.song3.run_time)
 
     def test_room_can_take_guests(self):
         self.room1.guest_checkin(self.party1)
@@ -102,3 +112,10 @@ class TestRoom(unittest.TestCase):
         self.assertEqual([], self.room1.guest_list)
         self.assertEqual(True, self.room1.check_capacity(self.party3))
         self.assertEqual(0, self.room1.tab)
+
+    def test_room_can_update_tab(self):
+        self.room2.guest_checkin(self.party2)
+        self.room2.add_songlist(self.songlist1)
+        self.room2.add_songlist(self.songlist2)
+        self.room2.calculate_tab(self.room2)
+        self.assertEqual(self.room2.tab, 45)

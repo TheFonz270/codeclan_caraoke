@@ -1,9 +1,10 @@
 class Room:
-    def __init__(self, capacity):
+    def __init__(self, capacity, hourly_rate):
         self.capacity = capacity
         self.guest_list = []
         self.play_list = []
         self.entry_fee = 5
+        self.hourly_rate = hourly_rate
         self.tab = 0
     
     def check_capacity(self, party):
@@ -43,3 +44,9 @@ class Room:
     def remove_songlist(self, songlist):
         for song in songlist:
             self.play_list.remove(song)
+    
+    def calculate_tab(self, room):
+        total_run_time = 0
+        for song in self.play_list:
+            total_run_time += song.run_time 
+        self.tab += ((total_run_time / 60) /60) * self.hourly_rate
