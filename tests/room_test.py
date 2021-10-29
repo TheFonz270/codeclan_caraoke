@@ -63,3 +63,7 @@ class TestRoom(unittest.TestCase):
         self.room1.add_songlist(self.songlist1)
         self.room1.remove_songlist(self.songlist1)
         self.assertEqual(self.room1.play_list, [])
+    
+    def test_entry_fee_added_to_tab(self):
+        self.room1.guest_checkin(self.party1)
+        self.assertEqual(15, self.room1.tab)

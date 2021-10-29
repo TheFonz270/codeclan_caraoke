@@ -3,11 +3,14 @@ class Room:
         self.capacity = capacity
         self.guest_list = []
         self.play_list = []
+        self.entry_fee = 5
         self.tab = 0
     
     def guest_checkin(self, party):
         for person in party:
             self.guest_list.append(person)
+            person.wallet -= self.entry_fee
+            self.tab += self.entry_fee
         # print(self.guest_list)
     
     def guest_checkout(self, party):
